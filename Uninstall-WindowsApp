@@ -1,0 +1,11 @@
+# ----- Note: when I ran this for silverlight it did not cause a reboot.  Some application may auto reboot.  So Test!!!!!
+
+$AppName = 'Microsoft Silverlight'
+$Servers = ''
+
+Foreach ( $S in $Servers ) {
+    Write-Output "Removing $AppName on -- $S"
+
+    $App = Get-CimInstance -ComputerName $S -ClassName win32_Product -Filter "Name = '$AppName'"
+    $App | Invoke-CimMethod -MethodName Uninstall
+}
